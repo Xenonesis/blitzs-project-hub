@@ -7,6 +7,8 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { MainLayout } from "@/components/layout/MainLayout";
 import Index from "./pages/Index";
+import Login from "./pages/Login";
+import GetStarted from "./pages/GetStarted";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +25,8 @@ const App = () => (
               <Route element={<MainLayout />}>
                 <Route path="/" element={<Index />} />
               </Route>
+              <Route path="/login" element={<Login />} />
+              <Route path="/get-started" element={<GetStarted />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
