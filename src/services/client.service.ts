@@ -1,17 +1,31 @@
+<<<<<<< HEAD
 import { supabase } from '../lib/supabase';
+=======
+import api from '../lib/api';
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
 
 export interface ClientRequestData {
   name: string;
   email: string;
   phone?: string;
+<<<<<<< HEAD
   project_type: string;
   budget: string;
   timeline: string;
   description: string;
+=======
+  company?: string;
+  projectType: string; // This will be mapped to project_type in the controller
+  budget: string;
+  timeline: string;
+  description: string;
+  requirements?: string[];
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
 }
 
 export const clientService = {
   async createClientRequest(data: ClientRequestData) {
+<<<<<<< HEAD
     try {
       const { data: request, error } = await supabase
         .from('client_requests')
@@ -37,6 +51,10 @@ export const clientService = {
         message: 'Failed to create client request'
       };
     }
+=======
+    const response = await api.post('/clients', data);
+    return response.data;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   },
 
   async getUserClientRequests(params?: {
@@ -44,6 +62,7 @@ export const clientService = {
     limit?: number;
     status?: string;
   }) {
+<<<<<<< HEAD
     try {
       let query = supabase
         .from('client_requests')
@@ -126,5 +145,14 @@ export const clientService = {
         data: null
       };
     }
+=======
+    const response = await api.get('/clients/user', { params });
+    return response.data;
+  },
+
+  async getClientRequestById(id: string) {
+    const response = await api.get(`/clients/${id}`);
+    return response.data;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   }
 };

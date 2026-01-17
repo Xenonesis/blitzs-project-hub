@@ -7,7 +7,11 @@ import { SectionHeader } from '@/components/ui/section-header';
 import { ProjectCard } from '@/components/ui/project-card';
 import { DeveloperCard } from '@/components/ui/developer-card';
 import { projectService } from '@/services/project.service';
+<<<<<<< HEAD
 import { supabase } from '@/lib/supabase';
+=======
+import { adminService } from '@/services/admin.service';
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
 
 const Index = () => {
   const [featuredProjects, setFeaturedProjects] = useState([]);
@@ -48,6 +52,7 @@ const Index = () => {
     const fetchTeamMembers = async () => {
       try {
         setTeamLoading(true);
+<<<<<<< HEAD
         const { data: developers, error } = await supabase
           .from('developers')
           .select('*')
@@ -59,6 +64,12 @@ const Index = () => {
           console.error('Error fetching team members:', error);
         } else {
           setTeamMembers(developers || []);
+=======
+        const response = await adminService.getAllDevelopers();
+        
+        if (response.success) {
+          setTeamMembers(response.data.developers || []);
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
         }
       } catch (error) {
         console.error('Error fetching team members:', error);
@@ -191,7 +202,11 @@ const Index = () => {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {featuredProjects.map((project, index) => (
+<<<<<<< HEAD
                 <ProjectCard key={project.id} {...project} index={index} />
+=======
+                <ProjectCard key={project._id} id={project._id} slug={project._id} {...project} index={index} />
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
               ))}
             </div>
           )}

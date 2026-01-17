@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 
 interface Project {
+<<<<<<< HEAD
   id: string;
   title: string;
   description: string;
@@ -35,12 +36,33 @@ interface Project {
   difficulty: string;
   is_free: boolean;
   is_published: boolean;
+=======
+  _id: string;
+  title: string;
+  description: string;
+  shortDescription: string;
+  category: string;
+  price: number;
+  techStack: string[];
+  features: string[];
+  images: string[];
+  demoLink: string;
+  githubLink?: string;
+  difficulty: string;
+  isFree: boolean;
+  isPublished: boolean;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   downloads: number;
   purchases: number;
   rating: number;
   tags: string[];
+<<<<<<< HEAD
   created_at: string;
   updated_at: string;
+=======
+  createdAt: string;
+  updatedAt: string;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
 }
 
 interface Developer {
@@ -104,6 +126,7 @@ const AdminDashboard = () => {
       const projectData = {
         title: projectFormData.title,
         description: projectFormData.description,
+<<<<<<< HEAD
         short_description: projectFormData.description.substring(0, 200),
         category: projectFormData.category,
         price: Number(projectFormData.price),
@@ -115,12 +138,29 @@ const AdminDashboard = () => {
         difficulty: 'intermediate',
         is_free: projectFormData.price === 0,
         is_published: true,
+=======
+        shortDescription: projectFormData.description.substring(0, 200),
+        category: projectFormData.category,
+        price: Number(projectFormData.price),
+        techStack: [],
+        features: [],
+        images: [],
+        demoLink: projectFormData.demo,
+        githubLink: projectFormData.github,
+        difficulty: 'intermediate',
+        isFree: projectFormData.price === 0,
+        isPublished: true,
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
         tags: []
       };
 
       let response;
       if (editingProject) {
+<<<<<<< HEAD
         response = await projectService.updateProject(editingProject.id, projectData);
+=======
+        response = await projectService.updateProject(editingProject._id, projectData);
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
       } else {
         response = await projectService.createProject(projectData);
       }

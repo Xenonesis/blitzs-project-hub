@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { supabase } from '../lib/supabase';
 
 export interface Project {
@@ -15,16 +16,44 @@ export interface Project {
   difficulty: string;
   is_free: boolean;
   is_published: boolean;
+=======
+import api from '../lib/api';
+
+export interface Project {
+  _id: string;
+  title: string;
+  description: string;
+  shortDescription: string;
+  price: number;
+  category: string;
+  techStack: string[];
+  features: string[];
+  images: string[];
+  demoLink: string;
+  githubLink?: string;
+  difficulty: string;
+  isFree: boolean;
+  isPublished: boolean;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   downloads: number;
   purchases: number;
   rating: number;
   tags: string[];
+<<<<<<< HEAD
   added_by?: {
     id: string;
     full_name: string;
   };
   created_at: string;
   updated_at: string;
+=======
+  addedBy: {
+    _id: string;
+    fullName: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
 }
 
 export interface ProjectsResponse {
@@ -51,6 +80,7 @@ export const projectService = {
     sortOrder?: string;
     isFree?: boolean;
   }): Promise<ProjectsResponse> {
+<<<<<<< HEAD
     try {
       let query = supabase
         .from('projects')
@@ -323,10 +353,35 @@ export const projectService = {
         message: 'Failed to add review'
       };
     }
+=======
+    const response = await api.get('/projects', { params });
+    return response.data;
+  },
+
+  async getProjectById(id: string) {
+    const response = await api.get(`/projects/${id}`);
+    return response.data;
+  },
+
+  async purchaseProject(projectId: string) {
+    const response = await api.post(`/projects/${projectId}/purchase`);
+    return response.data;
+  },
+
+  async downloadProject(projectId: string) {
+    const response = await api.post(`/projects/${projectId}/download`);
+    return response.data;
+  },
+
+  async addReview(projectId: string, data: { rating: number; comment: string }) {
+    const response = await api.post(`/projects/${projectId}/review`, data);
+    return response.data;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   },
 
   // Admin only
   async createProject(data: Partial<Project>) {
+<<<<<<< HEAD
     try {
       const { data: { user } } = await supabase.auth.getUser();
       
@@ -419,5 +474,19 @@ export const projectService = {
         message: 'Failed to delete project'
       };
     }
+=======
+    const response = await api.post('/projects', data);
+    return response.data;
+  },
+
+  async updateProject(id: string, data: Partial<Project>) {
+    const response = await api.put(`/projects/${id}`, data);
+    return response.data;
+  },
+
+  async deleteProject(id: string) {
+    const response = await api.delete(`/projects/${id}`);
+    return response.data;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   }
 };

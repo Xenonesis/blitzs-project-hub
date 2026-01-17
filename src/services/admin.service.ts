@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { supabase } from '../lib/supabase';
+=======
+import api from '../lib/api';
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
 
 export interface DashboardStats {
   totalUsers: number;
@@ -9,6 +13,7 @@ export interface DashboardStats {
 }
 
 export interface User {
+<<<<<<< HEAD
   id: string;
   full_name: string;
   email: string;
@@ -23,15 +28,40 @@ export interface ClientRequest {
   email: string;
   phone?: string;
   project_type: string;
+=======
+  _id: string;
+  fullName: string;
+  email: string;
+  role: string;
+  isActive: boolean;
+  createdAt: string;
+}
+
+export interface ClientRequest {
+  _id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  company?: string;
+  projectType: string;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   budget: string;
   timeline: string;
   description: string;
   status: string;
+<<<<<<< HEAD
   created_at: string;
+=======
+  priority: string;
+  estimatedCost?: number;
+  estimatedTimeline?: string;
+  createdAt: string;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
 }
 
 export const adminService = {
   async getDashboardStats() {
+<<<<<<< HEAD
     try {
       const [
         usersCount,
@@ -71,6 +101,10 @@ export const adminService = {
         }
       };
     }
+=======
+    const response = await api.get('/admin/dashboard/stats');
+    return response.data;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   },
 
   async getAllUsers(params?: {
@@ -79,6 +113,7 @@ export const adminService = {
     search?: string;
     role?: string;
   }) {
+<<<<<<< HEAD
     try {
       let query = supabase
         .from('profiles')
@@ -200,6 +235,20 @@ export const adminService = {
         message: 'Failed to update user status'
       };
     }
+=======
+    const response = await api.get('/admin/users', { params });
+    return response.data;
+  },
+
+  async updateUserRole(userId: string, role: string) {
+    const response = await api.put(`/admin/users/${userId}/role`, { role });
+    return response.data;
+  },
+
+  async toggleUserStatus(userId: string) {
+    const response = await api.put(`/admin/users/${userId}/toggle-status`);
+    return response.data;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   },
 
   async getAllProjectsAdmin(params?: {
@@ -209,6 +258,7 @@ export const adminService = {
     category?: string;
     status?: string;
   }) {
+<<<<<<< HEAD
     try {
       let query = supabase
         .from('projects')
@@ -274,6 +324,10 @@ export const adminService = {
         }
       };
     }
+=======
+    const response = await api.get('/admin/projects', { params });
+    return response.data;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   },
 
   async getAllClientRequests(params?: {
@@ -283,6 +337,7 @@ export const adminService = {
     priority?: string;
     search?: string;
   }) {
+<<<<<<< HEAD
     try {
       let query = supabase
         .from('client_requests')
@@ -339,6 +394,10 @@ export const adminService = {
         }
       };
     }
+=======
+    const response = await api.get('/admin/requests', { params });
+    return response.data;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   },
 
   async updateRequestStatus(requestId: string, data: {
@@ -347,6 +406,7 @@ export const adminService = {
     estimatedCost?: number;
     estimatedTimeline?: string;
   }) {
+<<<<<<< HEAD
     try {
       const { error } = await supabase
         .from('client_requests')
@@ -484,5 +544,29 @@ export const adminService = {
         data: []
       };
     }
+=======
+    const response = await api.put(`/admin/requests/${requestId}/status`, data);
+    return response.data;
+  },
+
+  async addDeveloper(data: any) {
+    const response = await api.post('/admin/developers', data);
+    return response.data;
+  },
+
+  async updateDeveloper(developerId: string, data: any) {
+    const response = await api.put(`/admin/developers/${developerId}`, data);
+    return response.data;
+  },
+
+  async deleteDeveloper(developerId: string) {
+    const response = await api.delete(`/admin/developers/${developerId}`);
+    return response.data;
+  },
+
+  async getAllDevelopers() {
+    const response = await api.get('/admin/developers');
+    return response.data;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   }
 };

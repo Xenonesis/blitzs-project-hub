@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { supabase } from '../lib/supabase';
+=======
+import api from '../lib/api';
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
 
 export interface LoginData {
   email: string;
@@ -32,6 +36,7 @@ export interface AuthResponse {
 
 export const authService = {
   async login(data: LoginData): Promise<AuthResponse> {
+<<<<<<< HEAD
     try {
       const { data: authData, error } = await supabase.auth.signInWithPassword({
         email: data.email,
@@ -279,6 +284,44 @@ export const authService = {
 
   setToken(token: string) {
     localStorage.setItem('supabase.auth.token', token);
+=======
+    const response = await api.post('/auth/signin', data);
+    return response.data;
+  },
+
+  async register(data: RegisterData): Promise<AuthResponse> {
+    const response = await api.post('/auth/signup', data);
+    return response.data;
+  },
+
+  async getProfile() {
+    const response = await api.get('/auth/profile');
+    return response.data;
+  },
+
+  async updateProfile(data: { fullName?: string; avatar?: string }) {
+    const response = await api.put('/auth/profile', data);
+    return response.data;
+  },
+
+  async changePassword(data: { currentPassword: string; newPassword: string }) {
+    const response = await api.put('/auth/change-password', data);
+    return response.data;
+  },
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.href = '/login';
+  },
+
+  getToken() {
+    return localStorage.getItem('token');
+  },
+
+  setToken(token: string) {
+    localStorage.setItem('token', token);
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   },
 
   getUser() {
@@ -290,6 +333,7 @@ export const authService = {
     localStorage.setItem('user', JSON.stringify(user));
   },
 
+<<<<<<< HEAD
   async isAuthenticated(): Promise<boolean> {
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -314,5 +358,14 @@ export const authService = {
     } catch (error) {
       return false;
     }
+=======
+  isAuthenticated(): boolean {
+    return !!this.getToken();
+  },
+
+  isAdmin(): boolean {
+    const user = this.getUser();
+    return user?.role === 'admin';
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   }
 };

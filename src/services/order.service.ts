@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { supabase } from '../lib/supabase';
 
 export interface Order {
@@ -11,16 +12,43 @@ export interface Order {
   };
   project?: {
     id: string;
+=======
+import api from '../lib/api';
+
+export interface Order {
+  _id: string;
+  user: {
+    _id: string;
+    fullName: string;
+    email: string;
+  };
+  project: {
+    _id: string;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
     title: string;
     price: number;
     images: string[];
     category: string;
   };
+<<<<<<< HEAD
   amount: number;
   status: 'pending' | 'completed' | 'failed' | 'refunded';
   payment_id?: string;
   created_at: string;
   updated_at: string;
+=======
+  orderNumber: string;
+  amount: number;
+  status: 'pending' | 'completed' | 'failed' | 'refunded';
+  paymentMethod: string;
+  isPaid: boolean;
+  paidAt?: string;
+  downloadCount: number;
+  maxDownloads: number;
+  expiresAt: string;
+  createdAt: string;
+  updatedAt: string;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
 }
 
 export const orderService = {
@@ -29,6 +57,7 @@ export const orderService = {
     limit?: number;
     status?: string;
   }) {
+<<<<<<< HEAD
     try {
       const { data: { user } } = await supabase.auth.getUser();
       
@@ -163,6 +192,15 @@ export const orderService = {
         data: null
       };
     }
+=======
+    const response = await api.get('/orders/user', { params });
+    return response.data;
+  },
+
+  async getOrderById(id: string) {
+    const response = await api.get(`/orders/${id}`);
+    return response.data;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   },
 
   // Admin only
@@ -172,6 +210,7 @@ export const orderService = {
     status?: string;
     search?: string;
   }) {
+<<<<<<< HEAD
     try {
       let query = supabase
         .from('orders')
@@ -307,5 +346,19 @@ export const orderService = {
         }
       };
     }
+=======
+    const response = await api.get('/orders', { params });
+    return response.data;
+  },
+
+  async updateOrderStatus(orderId: string, status: string) {
+    const response = await api.put(`/orders/${orderId}/status`, { status });
+    return response.data;
+  },
+
+  async getOrderStats() {
+    const response = await api.get('/orders/stats');
+    return response.data;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   }
 };

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 
 interface ProjectCardProps {
+<<<<<<< HEAD
   id: string;
   slug?: string;
   title: string;
@@ -19,6 +20,22 @@ interface ProjectCardProps {
   demo_link: string;
   github_link?: string;
   tech_stack: string[];
+=======
+  _id: string;
+  id: string;
+  slug: string;
+  title: string;
+  shortDescription: string;
+  description: string;
+  category: string;
+  price: number;
+  isFree: boolean;
+  thumbnailUrl?: string;
+  images: string[];
+  demoLink: string;
+  githubLink?: string;
+  techStack: string[];
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   features: string[];
   rating: number;
   purchases: number;
@@ -27,6 +44,7 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard = ({
+<<<<<<< HEAD
   id,
   slug = id,
   title,
@@ -40,6 +58,21 @@ export const ProjectCard = ({
   demo_link,
   github_link,
   tech_stack = [],
+=======
+  _id,
+  slug = _id,
+  title,
+  shortDescription,
+  description,
+  category,
+  price,
+  isFree,
+  thumbnailUrl,
+  images = [],
+  demoLink,
+  githubLink,
+  techStack = [],
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   features = [],
   rating = 0,
   purchases = 0,
@@ -78,7 +111,11 @@ export const ProjectCard = ({
             </div>
             <div className="absolute top-3 right-3">
               <Badge className="bg-blitz-gradient text-primary-foreground">
+<<<<<<< HEAD
                 {is_free ? 'Free' : `$${price.toFixed(0)}`}
+=======
+                {isFree ? 'Free' : `$${price.toFixed(0)}`}
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
               </Badge>
             </div>
           </div>
@@ -88,17 +125,30 @@ export const ProjectCard = ({
             {title}
           </h3>
           <p className="text-muted-foreground text-sm line-clamp-2 mb-3">
+<<<<<<< HEAD
             {short_description || description}
           </p>
           <div className="flex flex-wrap gap-1.5">
             {tech_stack.slice(0, 4).map((tech) => (
+=======
+            {shortDescription || description}
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {techStack.slice(0, 4).map((tech) => (
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
               <Badge key={tech} variant="outline" className="text-xs">
                 {tech}
               </Badge>
             ))}
+<<<<<<< HEAD
             {tech_stack.length > 4 && (
               <Badge variant="outline" className="text-xs">
                 +{tech_stack.length - 4}
+=======
+            {techStack.length > 4 && (
+              <Badge variant="outline" className="text-xs">
+                +{techStack.length - 4}
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
               </Badge>
             )}
           </div>

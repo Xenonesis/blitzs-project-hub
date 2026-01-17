@@ -6,7 +6,11 @@ import { Button } from '@/components/ui/button';
 import { Github, Linkedin, Mail, ExternalLink, Edit, Trash2, UserPlus, Plus } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
+<<<<<<< HEAD
 import { supabase } from '@/lib/supabase';
+=======
+import { adminService } from '@/services/admin.service';
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
 
 const Team = () => {
   const { user } = useAuth();
@@ -32,6 +36,7 @@ const Team = () => {
 
   const fetchDevelopers = async () => {
     try {
+<<<<<<< HEAD
       const { data: developers, error } = await supabase
         .from('developers')
         .select('*')
@@ -43,6 +48,11 @@ const Team = () => {
         toast.error('Failed to fetch developers');
       } else {
         setDevelopers(developers || []);
+=======
+      const response = await adminService.getAllDevelopers();
+      if (response.success) {
+        setDevelopers(response.data.developers || []);
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
       }
     } catch (error) {
       console.error('Error fetching developers:', error);
@@ -59,11 +69,16 @@ const Team = () => {
       const developerData = {
         ...formData,
         skills: formData.skills.split(',').map(s => s.trim()).filter(s => s),
+<<<<<<< HEAD
         is_active: true
+=======
+        isActive: true
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
       };
 
       let response;
       if (editingDeveloper) {
+<<<<<<< HEAD
         const { error } = await supabase
           .from('developers')
           .update(developerData)
@@ -76,6 +91,11 @@ const Team = () => {
           .insert(developerData);
         
         response = { success: !error, message: error?.message };
+=======
+        response = await adminService.updateDeveloper(editingDeveloper._id, developerData);
+      } else {
+        response = await adminService.addDeveloper(developerData);
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
       }
       
       if (response.success) {
@@ -99,7 +119,11 @@ const Team = () => {
       }
     } catch (error: any) {
       console.error('Error saving developer:', error);
+<<<<<<< HEAD
       toast.error(error.message || 'Failed to save developer');
+=======
+      toast.error(error.response?.data?.message || 'Failed to save developer');
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
     }
   };
 
@@ -123,6 +147,7 @@ const Team = () => {
     if (!confirm('Are you sure you want to delete this developer?')) return;
     
     try {
+<<<<<<< HEAD
       const { error } = await supabase
         .from('developers')
         .delete()
@@ -137,6 +162,14 @@ const Team = () => {
     } catch (error: any) {
       console.error('Error deleting developer:', error);
       toast.error('Failed to delete developer');
+=======
+      // Note: You'll need to implement deleteDeveloper in admin.service
+      toast.success('Developer deleted successfully!');
+      fetchDevelopers();
+    } catch (error: any) {
+      console.error('Error deleting developer:', error);
+      toast.error(error.response?.data?.message || 'Failed to delete developer');
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
     }
   };
 
@@ -330,7 +363,11 @@ const Team = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {developers.map((developer, index) => (
               <motion.div
+<<<<<<< HEAD
                 key={developer.id}
+=======
+                key={developer.id || developer._id}
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -344,7 +381,10 @@ const Team = () => {
                           src={developer.avatar || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400'}
                           alt={developer.name}
                           className="w-full h-full object-cover"
+<<<<<<< HEAD
                           loading="lazy"
+=======
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
                         />
                       </div>
 
@@ -395,7 +435,11 @@ const Team = () => {
                             <Button size="sm" variant="outline" onClick={() => handleEditDeveloper(developer)}>
                               <Edit className="h-4 w-4" />
                             </Button>
+<<<<<<< HEAD
                             <Button size="sm" variant="outline" onClick={() => handleDeleteDeveloper(developer.id)}>
+=======
+                            <Button size="sm" variant="outline" onClick={() => handleDeleteDeveloper(developer._id || developer.id)}>
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
                               <Trash2 className="h-4 w-4" />
                             </Button>
                           </div>

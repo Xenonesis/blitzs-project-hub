@@ -17,9 +17,12 @@ import Guide from "./pages/Guide";
 import Contact from "./pages/Contact";
 import GetStarted from "./pages/GetStarted";
 import NotFound from "./pages/NotFound";
+<<<<<<< HEAD
 import Unauthorized from "./pages/Unauthorized";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import QuickSetup from "@/components/admin/QuickSetup";
+=======
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
 
 const queryClient = new QueryClient();
 
@@ -30,6 +33,7 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
+<<<<<<< HEAD
           <Routes>
             <Route element={<MainLayout />}>
               <Route path="/" element={<Index />} />
@@ -55,6 +59,25 @@ const App = () => (
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+=======
+          <BrowserRouter>
+            <Routes>
+              <Route element={<MainLayout />}>
+                <Route path="/" element={<Index />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/team" element={<Team />} />
+                <Route path="/how-to-use" element={<Guide />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/user-dashboard" element={<UserDashboard />} />
+                <Route path="/admin-dashboard" element={<SimpleAdminDashboardNew />} />
+              </Route>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/get-started" element={<GetStarted />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
         </TooltipProvider>
       </AuthProvider>
     </ThemeProvider>

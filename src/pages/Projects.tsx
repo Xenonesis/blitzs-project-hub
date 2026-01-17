@@ -199,7 +199,11 @@ const Projects = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {projects.map((project: any, index) => (
                 <motion.div
+<<<<<<< HEAD
                   key={project.id}
+=======
+                  key={project._id}
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -211,61 +215,106 @@ const Projects = () => {
                           src={project.images && project.images.length > 0 ? project.images[0] : 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400'}
                           alt={project.title}
                           className="w-full h-full object-cover"
+<<<<<<< HEAD
                           loading="lazy"
+=======
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
                         />
                       </div>
                       <div className="flex items-start justify-between">
                         <CardTitle className="text-lg line-clamp-2">{project.title}</CardTitle>
                         <div className="flex items-center gap-1 ml-2">
                           <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+<<<<<<< HEAD
                           <span className="text-sm">{(project.rating || 0).toFixed(1)}</span>
                         </div>
                       </div>
                       <CardDescription className="line-clamp-2">
                         {project.short_description}
+=======
+                          <span className="text-sm">{project.rating.toFixed(1)}</span>
+                        </div>
+                      </div>
+                      <CardDescription className="line-clamp-2">
+                        {project.shortDescription}
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="flex-1">
                       <div className="flex flex-wrap gap-1 mb-4">
+<<<<<<< HEAD
                         {(project.tech_stack || []).slice(0, 3).map((tech: string) => (
+=======
+                        {project.techStack.slice(0, 3).map((tech: string) => (
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
                           <Badge key={tech} variant="secondary" className="text-xs">
                             {tech}
                           </Badge>
                         ))}
+<<<<<<< HEAD
                         {(project.tech_stack || []).length > 3 && (
                           <Badge variant="outline" className="text-xs">
                             +{(project.tech_stack || []).length - 3}
+=======
+                        {project.techStack.length > 3 && (
+                          <Badge variant="outline" className="text-xs">
+                            +{project.techStack.length - 3}
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
                           </Badge>
                         )}
                       </div>
                       <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
+<<<<<<< HEAD
                         <span>{project.purchases || 0} purchases</span>
                         <span>{project.downloads || 0} downloads</span>
+=======
+                        <span>{project.purchases} purchases</span>
+                        <span>{project.downloads} downloads</span>
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
                       </div>
                     </CardContent>
                     <CardFooter className="pt-3">
                       <div className="flex items-center justify-between w-full">
                         <div>
                           <div className="text-2xl font-bold">
+<<<<<<< HEAD
                             {project.is_free ? 'Free' : `$${project.price}`}
                           </div>
                           <Badge variant={project.is_free ? 'default' : 'secondary'}>
                             {project.is_free ? 'Open Source' : 'Premium'}
+=======
+                            {project.isFree ? 'Free' : `$${project.price}`}
+                          </div>
+                          <Badge variant={project.isFree ? 'default' : 'secondary'}>
+                            {project.isFree ? 'Open Source' : 'Premium'}
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
                           </Badge>
                         </div>
                         <div className="flex gap-2">
                           <Button size="sm" variant="outline" asChild>
+<<<<<<< HEAD
                             <a href={project.demo_link} target="_blank" rel="noopener noreferrer">
+=======
+                            <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
                               <Eye className="h-4 w-4" />
                             </a>
                           </Button>
                           <Button
                             size="sm"
+<<<<<<< HEAD
                             onClick={() => handlePurchase(project.id)}
                             disabled={!user}
                           >
                             <ShoppingCart className="h-4 w-4 mr-2" />
                             {project.is_free ? 'Get' : 'Buy'}
+=======
+                            onClick={() => handlePurchase(project._id)}
+                            disabled={!user}
+                          >
+                            <ShoppingCart className="h-4 w-4 mr-2" />
+                            {project.isFree ? 'Get' : 'Buy'}
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
                           </Button>
                         </div>
                       </div>

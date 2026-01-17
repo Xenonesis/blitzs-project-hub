@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { authService } from '@/services/auth.service';
+<<<<<<< HEAD
 import { supabase } from '@/lib/supabase';
+=======
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
 
 interface AuthContextType {
   user: any | null;
@@ -19,6 +22,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
+<<<<<<< HEAD
     // Initialize auth state
     const initializeAuth = async () => {
       try {
@@ -62,6 +66,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
 
     return () => subscription.unsubscribe();
+=======
+    // Check for existing session on mount
+    const token = authService.getToken();
+    const userData = authService.getUser();
+    
+    if (token && userData) {
+      setUser(userData);
+      setIsAdmin(authService.isAdmin());
+    }
+    
+    setIsLoading(false);
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
   }, []);
 
   const signUp = async (email: string, password: string, fullName: string) => {
@@ -74,6 +90,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       if (response.success) {
         setUser(response.data.user);
+<<<<<<< HEAD
+=======
+        authService.setToken(response.data.token);
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
         authService.setUser(response.data.user);
         setIsAdmin(response.data.user.role === 'admin');
       }
@@ -93,6 +113,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       if (response.success) {
         setUser(response.data.user);
+<<<<<<< HEAD
+=======
+        authService.setToken(response.data.token);
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
         authService.setUser(response.data.user);
         setIsAdmin(response.data.user.role === 'admin');
       }
@@ -104,7 +128,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const signOut = async () => {
+<<<<<<< HEAD
     await authService.logout();
+=======
+    authService.logout();
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
     setUser(null);
     setIsAdmin(false);
   };
