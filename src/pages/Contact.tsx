@@ -94,9 +94,27 @@ const Contact = () => {
     setIsLoading(true);
 
     try {
+<<<<<<< HEAD
       const requestData = {
         ...formData,
         requirements: formData.requirements.filter(req => req.trim() !== '')
+=======
+<<<<<<< HEAD
+      // Map form data to database schema
+      const requestData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        project_type: formData.projectType,
+        budget: formData.budget,
+        timeline: formData.timeline,
+        description: formData.description
+=======
+      const requestData = {
+        ...formData,
+        requirements: formData.requirements.filter(req => req.trim() !== '')
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
       };
 
       const response = await clientService.createClientRequest(requestData);
@@ -104,11 +122,25 @@ const Contact = () => {
       if (response.success) {
         setIsSubmitted(true);
         toast.success(response.message);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
       } else {
         toast.error(response.message || 'Failed to submit request');
       }
     } catch (error: any) {
+<<<<<<< HEAD
       toast.error(error.response?.data?.message || 'Failed to submit request. Please try again.');
+=======
+      console.error('Submit error:', error);
+      toast.error('Failed to submit request. Please try again.');
+=======
+      }
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Failed to submit request. Please try again.');
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
     } finally {
       setIsLoading(false);
     }

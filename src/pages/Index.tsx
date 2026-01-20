@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Code2, Smartphone, Users, Zap, Sparkles, CheckCircle, Palette, Rocket, Wrench, Cloud } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SectionHeader } from '@/components/ui/section-header';
+<<<<<<< HEAD
 import { DeveloperCard } from '@/components/ui/developer-card';
 import { supabaseRealService } from '../services/supabase-real';
 
@@ -18,6 +19,16 @@ const ProjectCard = ({ title, description, category, price, isFree }: any) => (
     </div>
   </div>
 );
+=======
+import { ProjectCard } from '@/components/ui/project-card';
+import { DeveloperCard } from '@/components/ui/developer-card';
+import { projectService } from '@/services/project.service';
+<<<<<<< HEAD
+import { supabase } from '@/lib/supabase';
+=======
+import { adminService } from '@/services/admin.service';
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
 
 const Index = () => {
   const [featuredProjects, setFeaturedProjects] = useState([]);
@@ -35,6 +46,7 @@ const Index = () => {
     { icon: Wrench, title: 'Maintenance & Support', description: 'Long-term support, updates & optimization' },
   ];
 
+<<<<<<< HEAD
   // Fetch featured projects and team members from your real Supabase database
   useEffect(() => {
     // First, diagnose your database structure
@@ -44,6 +56,14 @@ const Index = () => {
       try {
         setProjectsLoading(true);
         const response = await supabaseRealService.getAllProjects({ 
+=======
+  // Fetch featured projects and team members
+  useEffect(() => {
+    const fetchFeaturedProjects = async () => {
+      try {
+        setProjectsLoading(true);
+        const response = await projectService.getAllProjects({ 
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
           limit: 6, 
           sortBy: 'created_at' 
         });
@@ -61,10 +81,31 @@ const Index = () => {
     const fetchTeamMembers = async () => {
       try {
         setTeamLoading(true);
+<<<<<<< HEAD
         const response = await supabaseRealService.getAllDevelopers();
         
         if (response.success) {
           setTeamMembers(response.data.developers || []);
+=======
+<<<<<<< HEAD
+        const { data: developers, error } = await supabase
+          .from('developers')
+          .select('*')
+          .eq('is_active', true)
+          .order('created_at', { ascending: false })
+          .limit(6);
+        
+        if (error) {
+          console.error('Error fetching team members:', error);
+        } else {
+          setTeamMembers(developers || []);
+=======
+        const response = await adminService.getAllDevelopers();
+        
+        if (response.success) {
+          setTeamMembers(response.data.developers || []);
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
         }
       } catch (error) {
         console.error('Error fetching team members:', error);
@@ -197,7 +238,15 @@ const Index = () => {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {featuredProjects.map((project, index) => (
+<<<<<<< HEAD
                 <ProjectCard key={project._id} id={project._id} slug={project._id} {...project} index={index} />
+=======
+<<<<<<< HEAD
+                <ProjectCard key={project.id} {...project} index={index} />
+=======
+                <ProjectCard key={project._id} id={project._id} slug={project._id} {...project} index={index} />
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
               ))}
             </div>
           )}

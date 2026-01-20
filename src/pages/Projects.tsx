@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+<<<<<<< HEAD
 import { simpleService } from '../services/simple-service';
+=======
+import { projectService } from '@/services/project.service';
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -33,15 +37,25 @@ const Projects = () => {
   const fetchProjects = async () => {
     try {
       setLoading(true);
+<<<<<<< HEAD
       const response = await simpleService.getAllProjects({
+=======
+      const params = {
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
         page: pagination.currentPage,
         limit: 12,
         ...(filters.category !== 'all' && { category: filters.category }),
         ...(filters.search && { search: filters.search }),
         sortBy: filters.sortBy,
         ...(filters.isFree !== 'all' && { isFree: filters.isFree === 'true' })
+<<<<<<< HEAD
       });
       
+=======
+      };
+
+      const response = await projectService.getAllProjects(params);
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
       if (response.success) {
         setProjects(response.data.projects);
         setPagination(response.data.pagination);
@@ -61,7 +75,11 @@ const Projects = () => {
     }
 
     try {
+<<<<<<< HEAD
       const response = await simpleService.purchaseProject(projectId);
+=======
+      const response = await projectService.purchaseProject(projectId);
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
       if (response.success) {
         toast.success(response.message);
         if (!response.data.isFree) {
@@ -198,7 +216,15 @@ const Projects = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {projects.map((project: any, index) => (
                 <motion.div
+<<<<<<< HEAD
                   key={project._id}
+=======
+<<<<<<< HEAD
+                  key={project.id}
+=======
+                  key={project._id}
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -210,61 +236,148 @@ const Projects = () => {
                           src={project.images && project.images.length > 0 ? project.images[0] : 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400'}
                           alt={project.title}
                           className="w-full h-full object-cover"
+<<<<<<< HEAD
                           loading="lazy"
+=======
+<<<<<<< HEAD
+                          loading="lazy"
+=======
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
                         />
                       </div>
                       <div className="flex items-start justify-between">
                         <CardTitle className="text-lg line-clamp-2">{project.title}</CardTitle>
                         <div className="flex items-center gap-1 ml-2">
                           <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
                           <span className="text-sm">{(project.rating || 0).toFixed(1)}</span>
                         </div>
                       </div>
                       <CardDescription className="line-clamp-2">
+<<<<<<< HEAD
                         {project.shortDescription}
+=======
+                        {project.short_description}
+=======
+                          <span className="text-sm">{project.rating.toFixed(1)}</span>
+                        </div>
+                      </div>
+                      <CardDescription className="line-clamp-2">
+                        {project.shortDescription}
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="flex-1">
                       <div className="flex flex-wrap gap-1 mb-4">
+<<<<<<< HEAD
                         {project.techStack.slice(0, 3).map((tech: string) => (
+=======
+<<<<<<< HEAD
+                        {(project.tech_stack || []).slice(0, 3).map((tech: string) => (
+=======
+                        {project.techStack.slice(0, 3).map((tech: string) => (
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
                           <Badge key={tech} variant="secondary" className="text-xs">
                             {tech}
                           </Badge>
                         ))}
+<<<<<<< HEAD
                         {project.techStack.length > 3 && (
                           <Badge variant="outline" className="text-xs">
                             +{project.techStack.length - 3}
+=======
+<<<<<<< HEAD
+                        {(project.tech_stack || []).length > 3 && (
+                          <Badge variant="outline" className="text-xs">
+                            +{(project.tech_stack || []).length - 3}
+=======
+                        {project.techStack.length > 3 && (
+                          <Badge variant="outline" className="text-xs">
+                            +{project.techStack.length - 3}
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
                           </Badge>
                         )}
                       </div>
                       <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
+<<<<<<< HEAD
                         <span>{project.purchases} purchases</span>
                         <span>{project.downloads} downloads</span>
+=======
+<<<<<<< HEAD
+                        <span>{project.purchases || 0} purchases</span>
+                        <span>{project.downloads || 0} downloads</span>
+=======
+                        <span>{project.purchases} purchases</span>
+                        <span>{project.downloads} downloads</span>
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
                       </div>
                     </CardContent>
                     <CardFooter className="pt-3">
                       <div className="flex items-center justify-between w-full">
                         <div>
                           <div className="text-2xl font-bold">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+                            {project.is_free ? 'Free' : `$${project.price}`}
+                          </div>
+                          <Badge variant={project.is_free ? 'default' : 'secondary'}>
+                            {project.is_free ? 'Open Source' : 'Premium'}
+=======
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
                             {project.isFree ? 'Free' : `$${project.price}`}
                           </div>
                           <Badge variant={project.isFree ? 'default' : 'secondary'}>
                             {project.isFree ? 'Open Source' : 'Premium'}
+<<<<<<< HEAD
+=======
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
                           </Badge>
                         </div>
                         <div className="flex gap-2">
                           <Button size="sm" variant="outline" asChild>
+<<<<<<< HEAD
                             <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
+=======
+<<<<<<< HEAD
+                            <a href={project.demo_link} target="_blank" rel="noopener noreferrer">
+=======
+                            <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
                               <Eye className="h-4 w-4" />
                             </a>
                           </Button>
                           <Button
                             size="sm"
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+                            onClick={() => handlePurchase(project.id)}
+                            disabled={!user}
+                          >
+                            <ShoppingCart className="h-4 w-4 mr-2" />
+                            {project.is_free ? 'Get' : 'Buy'}
+=======
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
                             onClick={() => handlePurchase(project._id)}
                             disabled={!user}
                           >
                             <ShoppingCart className="h-4 w-4 mr-2" />
                             {project.isFree ? 'Get' : 'Buy'}
+<<<<<<< HEAD
+=======
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
                           </Button>
                         </div>
                       </div>

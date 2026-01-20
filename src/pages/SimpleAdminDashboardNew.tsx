@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { projectService } from '@/services/project.service';
+<<<<<<< HEAD
+=======
+import { adminService } from '@/services/admin.service';
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -20,6 +24,25 @@ import {
 } from 'lucide-react';
 
 interface Project {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  id: string;
+  title: string;
+  description: string;
+  short_description: string;
+  category: string;
+  price: number;
+  tech_stack: string[];
+  features: string[];
+  images: string[];
+  demo_link: string;
+  github_link?: string;
+  difficulty: string;
+  is_free: boolean;
+  is_published: boolean;
+=======
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
   _id: string;
   title: string;
   description: string;
@@ -34,12 +57,26 @@ interface Project {
   difficulty: string;
   isFree: boolean;
   isPublished: boolean;
+<<<<<<< HEAD
+=======
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
   downloads: number;
   purchases: number;
   rating: number;
   tags: string[];
+<<<<<<< HEAD
   createdAt: string;
   updatedAt: string;
+=======
+<<<<<<< HEAD
+  created_at: string;
+  updated_at: string;
+=======
+  createdAt: string;
+  updatedAt: string;
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
 }
 
 interface Developer {
@@ -86,7 +123,11 @@ const AdminDashboard = () => {
 
   const fetchDevelopers = async () => {
     try {
+<<<<<<< HEAD
       const response = { success: true, data: { developers: [] } };
+=======
+      const response = await adminService.getAllDevelopers();
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
       if (response.success) {
         setDevelopers(response.data.developers || []);
       }
@@ -103,6 +144,22 @@ const AdminDashboard = () => {
       const projectData = {
         title: projectFormData.title,
         description: projectFormData.description,
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        short_description: projectFormData.description.substring(0, 200),
+        category: projectFormData.category,
+        price: Number(projectFormData.price),
+        tech_stack: [],
+        features: [],
+        images: [],
+        demo_link: projectFormData.demo,
+        github_link: projectFormData.github,
+        difficulty: 'intermediate',
+        is_free: projectFormData.price === 0,
+        is_published: true,
+=======
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
         shortDescription: projectFormData.description.substring(0, 200),
         category: projectFormData.category,
         price: Number(projectFormData.price),
@@ -114,12 +171,24 @@ const AdminDashboard = () => {
         difficulty: 'intermediate',
         isFree: projectFormData.price === 0,
         isPublished: true,
+<<<<<<< HEAD
+=======
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
         tags: []
       };
 
       let response;
       if (editingProject) {
+<<<<<<< HEAD
         response = await projectService.updateProject(editingProject._id, projectData);
+=======
+<<<<<<< HEAD
+        response = await projectService.updateProject(editingProject.id, projectData);
+=======
+        response = await projectService.updateProject(editingProject._id, projectData);
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
       } else {
         response = await projectService.createProject(projectData);
       }
@@ -199,9 +268,15 @@ const AdminDashboard = () => {
 
       let response;
       if (editingDeveloper) {
+<<<<<<< HEAD
         response = { success: true, message: 'Developer updated successfully' };
       } else {
         response = { success: true, message: 'Developer added successfully' };
+=======
+        response = await adminService.updateDeveloper(editingDeveloper.id, developerData);
+      } else {
+        response = await adminService.addDeveloper(developerData);
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
       }
       
       if (response.success) {
@@ -234,7 +309,11 @@ const AdminDashboard = () => {
     if (!confirm('Are you sure you want to delete this developer?')) return;
     
     try {
+<<<<<<< HEAD
       const response = { success: true, message: 'Developer deleted successfully' };
+=======
+      const response = await adminService.deleteDeveloper(developerId);
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
       
       if (response.success) {
         toast.success('Developer deleted successfully!');

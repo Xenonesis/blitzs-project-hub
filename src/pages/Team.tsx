@@ -6,7 +6,15 @@ import { Button } from '@/components/ui/button';
 import { Github, Linkedin, Mail, ExternalLink, Edit, Trash2, UserPlus, Plus } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
+<<<<<<< HEAD
 import { simpleService } from '../services/simple-service';
+=======
+<<<<<<< HEAD
+import { supabase } from '@/lib/supabase';
+=======
+import { adminService } from '@/services/admin.service';
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
 
 const Team = () => {
   const { user } = useAuth();
@@ -32,6 +40,7 @@ const Team = () => {
 
   const fetchDevelopers = async () => {
     try {
+<<<<<<< HEAD
       setLoading(true);
       const response = await simpleService.getAllDevelopers();
       
@@ -41,6 +50,29 @@ const Team = () => {
     } catch (error) {
       console.error('Error fetching developers:', error);
       toast.error('Failed to load developers');
+=======
+<<<<<<< HEAD
+      const { data: developers, error } = await supabase
+        .from('developers')
+        .select('*')
+        .eq('is_active', true)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching developers:', error);
+        toast.error('Failed to fetch developers');
+      } else {
+        setDevelopers(developers || []);
+=======
+      const response = await adminService.getAllDevelopers();
+      if (response.success) {
+        setDevelopers(response.data.developers || []);
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+      }
+    } catch (error) {
+      console.error('Error fetching developers:', error);
+      toast.error('Failed to fetch developers');
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
     } finally {
       setLoading(false);
     }
@@ -53,14 +85,43 @@ const Team = () => {
       const developerData = {
         ...formData,
         skills: formData.skills.split(',').map(s => s.trim()).filter(s => s),
+<<<<<<< HEAD
         isActive: true
+=======
+<<<<<<< HEAD
+        is_active: true
+=======
+        isActive: true
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
       };
 
       let response;
       if (editingDeveloper) {
+<<<<<<< HEAD
         response = await simpleService.updateDeveloper(editingDeveloper._id, developerData);
       } else {
         response = await simpleService.addDeveloper(developerData);
+=======
+<<<<<<< HEAD
+        const { error } = await supabase
+          .from('developers')
+          .update(developerData)
+          .eq('id', editingDeveloper.id);
+        
+        response = { success: !error, message: error?.message };
+      } else {
+        const { error } = await supabase
+          .from('developers')
+          .insert(developerData);
+        
+        response = { success: !error, message: error?.message };
+=======
+        response = await adminService.updateDeveloper(editingDeveloper._id, developerData);
+      } else {
+        response = await adminService.addDeveloper(developerData);
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
       }
       
       if (response.success) {
@@ -84,7 +145,15 @@ const Team = () => {
       }
     } catch (error: any) {
       console.error('Error saving developer:', error);
+<<<<<<< HEAD
       toast.error(error.response?.data?.message || 'Failed to save developer');
+=======
+<<<<<<< HEAD
+      toast.error(error.message || 'Failed to save developer');
+=======
+      toast.error(error.response?.data?.message || 'Failed to save developer');
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
     }
   };
 
@@ -108,12 +177,36 @@ const Team = () => {
     if (!confirm('Are you sure you want to delete this developer?')) return;
     
     try {
+<<<<<<< HEAD
       await simpleService.deleteDeveloper(developerId);
+=======
+<<<<<<< HEAD
+      const { error } = await supabase
+        .from('developers')
+        .delete()
+        .eq('id', developerId);
+      
+      if (error) {
+        toast.error('Failed to delete developer');
+      } else {
+        toast.success('Developer deleted successfully!');
+        fetchDevelopers();
+      }
+    } catch (error: any) {
+      console.error('Error deleting developer:', error);
+      toast.error('Failed to delete developer');
+=======
+      // Note: You'll need to implement deleteDeveloper in admin.service
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
       toast.success('Developer deleted successfully!');
       fetchDevelopers();
     } catch (error: any) {
       console.error('Error deleting developer:', error);
       toast.error(error.response?.data?.message || 'Failed to delete developer');
+<<<<<<< HEAD
+=======
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
     }
   };
 
@@ -129,6 +222,7 @@ const Team = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <section className="py-20 bg-gradient-to-br from-primary/10 to-secondary/10">
+<<<<<<< HEAD
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -147,12 +241,34 @@ const Team = () => {
                 <UserPlus className="h-4 w-4 mr-2" />
                 Add Developer
               </Button>
+=======
+        <div className="container mx-auto px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              Development Team
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              The talented individuals behind Blitzs, dedicated to building exceptional software solutions
+            </p>
+            {user?.role === 'admin' && (
+              <div className="mt-6">
+                <Button onClick={() => setShowAddForm(true)} className="flex items-center gap-2">
+                  <Plus className="h-4 w-4" />
+                  Add Developer
+                </Button>
+              </div>
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
             )}
           </motion.div>
         </div>
       </section>
 
       {/* Add Developer Form */}
+<<<<<<< HEAD
       {showAddForm && (
         <section className="py-20">
           <div className="container mx-auto px-4">
@@ -297,6 +413,151 @@ const Team = () => {
                 </CardContent>
               </Card>
             </motion.div>
+=======
+      {showAddForm && user?.role === 'admin' && (
+        <section className="py-8">
+          <div className="container mx-auto px-4">
+            <Card className="max-w-2xl mx-auto">
+              <CardContent>
+                <form onSubmit={handleAddDeveloper} className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        className="w-full px-3 py-2 border border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter developer name"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                      <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        className="w-full px-3 py-2 border border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter email address"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Bio</label>
+                    <textarea
+                      required
+                      value={formData.bio}
+                      onChange={(e) => setFormData({...formData, bio: e.target.value})}
+                      rows={4}
+                      className="w-full px-3 py-2 border border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Describe the developer's background and expertise"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Avatar URL</label>
+                      <input
+                        type="url"
+                        value={formData.avatar}
+                        onChange={(e) => setFormData({...formData, avatar: e.target.value})}
+                        className="w-full px-3 py-2 border border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="https://example.com/avatar.jpg"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Skills (comma-separated)</label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.skills}
+                        onChange={(e) => setFormData({...formData, skills: e.target.value})}
+                        className="w-full px-3 py-2 border border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="React, Node.js, TypeScript, etc."
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Experience</label>
+                      <select
+                        value={formData.experience}
+                        onChange={(e) => setFormData({...formData, experience: e.target.value})}
+                        className="w-full px-3 py-2 border border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      >
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                        <option value="expert">Expert</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">GitHub</label>
+                      <input
+                        type="url"
+                        value={formData.github}
+                        onChange={(e) => setFormData({...formData, github: e.target.value})}
+                        className="w-full px-3 py-2 border border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="https://github.com/username"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">LinkedIn</label>
+                      <input
+                        type="url"
+                        value={formData.linkedin}
+                        onChange={(e) => setFormData({...formData, linkedin: e.target.value})}
+                        className="w-full px-3 py-2 border border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="https://linkedin.com/in/username"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Portfolio</label>
+                    <input
+                      type="url"
+                      value={formData.portfolio}
+                      onChange={(e) => setFormData({...formData, portfolio: e.target.value})}
+                      className="w-full px-3 py-2 border border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="https://portfolio.example.com"
+                    />
+                  </div>
+
+                  <div className="flex gap-3 pt-4">
+                    <Button type="submit">
+                      {editingDeveloper ? 'Update Developer' : 'Add Developer'}
+                    </Button>
+                    <Button 
+                      type="button" 
+                      variant="outline" 
+                      onClick={() => {
+                        setShowAddForm(false);
+                        setEditingDeveloper(null);
+                        setFormData({
+                          name: '',
+                          email: '',
+                          bio: '',
+                          avatar: '',
+                          skills: '',
+                          experience: 'intermediate',
+                          github: '',
+                          linkedin: '',
+                          portfolio: ''
+                        });
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
           </div>
         </section>
       )}
@@ -307,7 +568,15 @@ const Team = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {developers.map((developer, index) => (
               <motion.div
+<<<<<<< HEAD
                 key={developer.id || developer._id}
+=======
+<<<<<<< HEAD
+                key={developer.id}
+=======
+                key={developer.id || developer._id}
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -321,7 +590,14 @@ const Team = () => {
                           src={developer.avatar || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400'}
                           alt={developer.name}
                           className="w-full h-full object-cover"
+<<<<<<< HEAD
                           loading="lazy"
+=======
+<<<<<<< HEAD
+                          loading="lazy"
+=======
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
                         />
                       </div>
 
@@ -367,6 +643,7 @@ const Team = () => {
                             <Mail className="h-4 w-4" />
                           </a>
                         </Button>
+<<<<<<< HEAD
                       </div>
 
                       {/* Admin Actions */}
@@ -380,6 +657,23 @@ const Team = () => {
                           </Button>
                         </div>
                       )}
+=======
+                        {user?.role === 'admin' && (
+                          <div className="flex gap-2">
+                            <Button size="sm" variant="outline" onClick={() => handleEditDeveloper(developer)}>
+                              <Edit className="h-4 w-4" />
+                            </Button>
+<<<<<<< HEAD
+                            <Button size="sm" variant="outline" onClick={() => handleDeleteDeveloper(developer.id)}>
+=======
+                            <Button size="sm" variant="outline" onClick={() => handleDeleteDeveloper(developer._id || developer.id)}>
+>>>>>>> 543604f79ee2629fb590a13389ced1f0a9de7d10
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+>>>>>>> 241152972fd255a93c347acfcadaaf09fe8cc3bd
                     </div>
                   </CardContent>
                 </Card>
