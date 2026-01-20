@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Blitzs Project Hub - Full-Stack Platform
 
 A complete full-stack platform for buying and selling projects, built with React + Node.js + MongoDB.
