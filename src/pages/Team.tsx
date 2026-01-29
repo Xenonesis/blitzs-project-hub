@@ -104,8 +104,51 @@ const Team = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      <div className="min-h-screen bg-background">
+        {/* Header Skeleton */}
+        <section className="py-20 bg-gradient-to-br from-primary/10 to-secondary/10">
+          <div className="container mx-auto px-4">
+            <div className="text-center max-w-4xl mx-auto">
+              <Skeleton className="h-12 w-64 mx-auto mb-6" />
+              <Skeleton className="h-6 w-96 mx-auto mb-8" />
+              <Skeleton className="h-10 w-40 mx-auto" />
+            </div>
+          </div>
+        </section>
+
+        {/* Team Grid Skeleton */}
+        <section className="py-20">
+          <div className="container mx-auto px-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {[...Array(6)].map((_, index) => (
+                <Card key={index} className="h-full">
+                  <CardContent className="p-6">
+                    <div className="flex items-center space-x-4 mb-4">
+                      <Skeleton className="w-16 h-16 rounded-full" />
+                      <div className="flex-1">
+                        <Skeleton className="h-6 w-32 mb-1" />
+                        <Skeleton className="h-4 w-24" />
+                      </div>
+                    </div>
+                    <Skeleton className="h-4 w-full mb-2" />
+                    <Skeleton className="h-4 w-3/4 mb-4" />
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <Skeleton className="h-6 w-16" />
+                      <Skeleton className="h-6 w-20" />
+                      <Skeleton className="h-6 w-14" />
+                    </div>
+                    <div className="flex gap-2">
+                      <Skeleton className="h-8 w-8" />
+                      <Skeleton className="h-8 w-8" />
+                      <Skeleton className="h-8 w-8" />
+                      <Skeleton className="h-8 w-8" />
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
     );
   }
