@@ -27,9 +27,11 @@ const AvatarUpload: React.FC = () => {
 
   const handleUpload = async () => {
     if (!file) return toast.error('Please choose an image to upload');
+    if (!user) return toast.error('You must be signed in to upload an avatar');
     setIsUploading(true);
     try {
-      const url = await uploadImage(file);
+      // Use Supabase storage upload
+      const url = await uploadImage(file, user.id);
       // Update user profile avatar
       const { user: updated, error } = await authService.updateProfile({ avatar: url });
       if (error) {
@@ -40,9 +42,9 @@ const AvatarUpload: React.FC = () => {
         setPreview(url);
         setFile(null);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      toast.error('Upload failed');
+      toast.error(err?.message || 'Upload failed');
     } finally {
       setIsUploading(false);
     }

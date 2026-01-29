@@ -1,3 +1,10 @@
+Storage setup
+----------------
+
+1. Create a new Storage bucket named `avatars` (Public) in the Supabase dashboard: Storage → Create bucket → name `avatars` → Public.
+2. (Optional) Configure CORS and caching to your preference. The app uses `supabase.storage.from('avatars').getPublicUrl(path)` to read uploaded images.
+
+## 🎉 Migration Complete!
 # Supabase Migration Setup Guide
 
 ## 🎯 Overview
