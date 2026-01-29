@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -6,85 +6,70 @@ import { Button } from '@/components/ui/button';
 import { Github, Linkedin, Mail, ExternalLink, Edit, Trash2, UserPlus, Plus } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
-import { adminService } from '../services/admin.service';
+import {
+  useDevelopers,
+  useAddDeveloper,
+  useUpdateDeveloper,
+  useDeleteDeveloper
+} from '../hooks/useAdmin';
 
 const Team = () => {
   const { user } = useAuth();
-  const [developers, setDevelopers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data: developers = [], isLoading: loading } = useDevelopers();
+  const addDeveloperMutation = useAddDeveloper();
+  const updateDeveloperMutation = useUpdateDeveloper();
+  const deleteDeveloperMutation = useDeleteDeveloper();
+
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingDeveloper, setEditingDeveloper] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
+    role: '',
     bio: '',
-    avatar: '',
+    avatar_url: '',
     skills: '',
-    experience: 'intermediate',
-    github: '',
-    linkedin: '',
-    portfolio: ''
+    github_url: '',
+    linkedin_url: ''
   });
-
-  useEffect(() => {
-    fetchDevelopers();
-  }, []);
-
-  const fetchDevelopers = async () => {
-    try {
-      setLoading(true);
-      const response = await adminService.getAllDevelopers();
-      
-      if (response.success) {
-        setDevelopers(response.data.developers || []);
-      }
-    } catch (error) {
-      console.error('Error fetching developers:', error);
-      toast.error('Failed to load developers');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleAddDeveloper = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       const developerData = {
         ...formData,
-        skills: formData.skills.split(',').map(s => s.trim()).filter(s => s),
-        is_active: true
+        skills: formData.skills.split(',').map(s => s.trim()).filter(s => s)
       };
 
-      let response;
+      let result;
       if (editingDeveloper) {
-        response = await adminService.updateDeveloper(editingDeveloper.id, developerData);
+        result = await updateDeveloperMutation.mutateAsync({
+          developerId: editingDeveloper.id,
+          updateData: developerData
+        });
       } else {
-        response = await adminService.addDeveloper(developerData);
+        result = await addDeveloperMutation.mutateAsync(developerData);
       }
-      
-      if (response.success) {
+
+      if (result.success) {
         toast.success(editingDeveloper ? 'Developer updated successfully!' : 'Developer added successfully!');
         setShowAddForm(false);
         setEditingDeveloper(null);
         setFormData({
           name: '',
-          email: '',
+          role: '',
           bio: '',
-          avatar: '',
+          avatar_url: '',
           skills: '',
-          experience: 'intermediate',
-          github: '',
-          linkedin: '',
-          portfolio: ''
+          github_url: '',
+          linkedin_url: ''
         });
-        fetchDevelopers();
       } else {
-        toast.error(response.message || 'Failed to save developer');
+        toast.error(result.message || 'Failed to save developer');
       }
     } catch (error: any) {
       console.error('Error saving developer:', error);
-      toast.error(error.response?.data?.message || 'Failed to save developer');
+      toast.error(error.message || 'Failed to save developer');
     }
   };
 
