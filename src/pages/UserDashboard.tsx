@@ -21,7 +21,7 @@ const UserDashboard = () => {
       try {
         const [ordersRes, requestsRes] = await Promise.all([
           orderService.getUserOrders(user.id),
-          clientService.getUserClientRequests(user.id)
+          clientService.getUserClientRequests(user.id, user.email)
         ]);
         
         if (ordersRes.success) setOrders(ordersRes.data);

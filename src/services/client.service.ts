@@ -109,8 +109,9 @@ export const clientService = {
     }
   },
 
-  async getUserClientRequests(userId: string) {
+  async getUserClientRequests(userId: string, userEmail?: string) {
     try {
+      // Try to fetch by user_id first
       const { data, error } = await supabase
         .from('client_requests')
         .select('*')
@@ -118,6 +119,22 @@ export const clientService = {
         .order('created_at', { ascending: false });
 
       if (error) {
+        // If the column doesn't exist, fall back to email-based lookup
+        if (error.code === '42703' && userEmail) {
+          const { data: byEmail, error: emailErr } = await supabase
+            .from('client_requests')
+            .select('*')
+            .eq('email', userEmail)
+            .order('created_at', { ascending: false });
+
+          if (emailErr) {
+            console.error('Error fetching client requests by email fallback:', emailErr);
+            return this.getFallbackRequests();
+          }
+
+          return { success: true, data: byEmail || [] };
+        }
+
         console.error('Error fetching user client requests:', error);
         return this.getFallbackRequests();
       }
