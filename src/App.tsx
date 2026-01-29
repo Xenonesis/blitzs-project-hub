@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { MainLayout } from "@/components/layout/MainLayout";
+import Particles from "../components/reactbits/Particles";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -32,6 +33,7 @@ const App = () => (
     <ThemeProvider>
       <AuthProvider>
         <TooltipProvider>
+          <Particles className="fixed inset-0 -z-10" particleBaseSize={200} particleCount={50} />
           <Toaster />
           <Sonner />
           <Routes>
