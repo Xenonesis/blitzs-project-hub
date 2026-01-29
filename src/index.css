@@ -47,41 +47,41 @@
   }
 
   .dark {
-    /* Dark mode with indigo primary */
-    --background: 222 47% 6%; /* Dark background */
-    --foreground: 210 40% 98%; /* Light text */
+    /* Dark mode with custom background and silver text */
+    --background: 0 0% 5%; /* #0C0C0C - Very dark gray */
+    --foreground: 0 0% 75%; /* Silver text */
 
-    --card: 222 47% 9%; /* Dark card */
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 8%; /* Slightly lighter than background */
+    --card-foreground: 0 0% 75%;
 
-    --popover: 222 47% 9%; /* Dark popover */
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 75%;
 
-    --primary: 217 91% 60%; /* Lighter indigo for dark mode */
-    --primary-foreground: 222 47% 6%;
+    --primary: 217 91% 60%; /* Keep indigo primary */
+    --primary-foreground: 0 0% 5%;
 
-    --secondary: 217 33% 17%; /* Dark gray blue */
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 12%; /* Dark gray */
+    --secondary-foreground: 0 0% 75%;
 
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 60%; /* Muted silver */
 
-    --accent: 217 91% 60%; /* Same as primary */
-    --accent-foreground: 222 47% 6%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 5%;
 
     --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 75%;
 
-    --border: 217 33% 17%;
-    --input: 217 33% 20%;
+    --border: 0 0% 15%;
+    --input: 0 0% 10%;
     --ring: 217 91% 60%;
     
     /* Semantic colors for dark mode */
-    --success: 142 76% 46%; /* Emerald */
+    --success: 142 76% 46%;
     --success-foreground: 0 0% 100%;
-    --warning: 42 92% 55%; /* Amber */
+    --warning: 42 92% 55%;
     --warning-foreground: 0 0% 100%;
-    --info: 200 98% 49%; /* Blue */
+    --info: 200 98% 49%;
     --info-foreground: 0 0% 100%;
   }
 }
