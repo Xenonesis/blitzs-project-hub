@@ -40,6 +40,9 @@ const App = () => (
               <Route path="/team" element={<Team />} />
               <Route path="/how-to-use" element={<Guide />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/projects/:projectId" element={<ProjectDetail />} />
+              <Route path="/settings" element={<Settings />} />
               <Route path="/user-dashboard" element={
                 <ProtectedRoute>
                   <UserDashboard />
@@ -50,19 +53,16 @@ const App = () => (
                   <SimpleAdminDashboardNew />
                 </ProtectedRoute>
               } />
+              <Route path="/add-project" element={
+                <ProtectedRoute>
+                  <AddProject />
+                </ProtectedRoute>
+              } />
             </Route>
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/projects/:projectId" element={<ProjectDetail />} />
             <Route path="/purchase/:projectId" element={<Purchase />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/get-started" element={<GetStarted />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/add-project" element={
-              <ProtectedRoute>
-                <AddProject />
-              </ProtectedRoute>
-            } />
             <Route path="/setup" element={<QuickSetup />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="*" element={<NotFound />} />
