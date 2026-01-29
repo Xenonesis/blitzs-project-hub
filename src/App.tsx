@@ -22,6 +22,7 @@ import NotFound from "./pages/NotFound";
 import Unauthorized from "./pages/Unauthorized";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import QuickSetup from "@/components/admin/QuickSetup";
+import Settings from "./pages/Settings";
 
 const queryClient = new QueryClient();
 
@@ -55,6 +56,7 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/get-started" element={<GetStarted />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="/setup" element={<QuickSetup />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="*" element={<NotFound />} />
