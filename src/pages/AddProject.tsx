@@ -45,8 +45,7 @@ const AddProject = () => {
         description: formData.description,
         price: parseFloat(formData.price) || 0,
         category: formData.category,
-        images: formData.images,
-        added_by: user.id
+        images: formData.images
       };
 
       const response = await projectService.createProject(projectData);

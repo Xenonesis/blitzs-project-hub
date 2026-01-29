@@ -5,11 +5,11 @@ export interface Project {
   title: string;
   slug: string;
   short_description: string;
-  full_description?: string;
+  description?: string;
   category: string;
   price: number;
   thumbnail_url?: string;
-  demo_url?: string;
+  demo_link?: string;
   github_repo_url?: string;
   tech_stack: string[];
   features: string[];
@@ -240,11 +240,11 @@ export const projectService = {
           title: projectData.title,
           slug: projectData.slug || projectData.title.toLowerCase().replace(/\s+/g, '-'),
           short_description: projectData.short_description,
-          full_description: projectData.full_description,
+          description: projectData.description,
           category: projectData.category,
           price: projectData.price,
           thumbnail_url: projectData.thumbnail_url,
-          demo_url: projectData.demo_url,
+          demo_link: projectData.demo_url,
           github_repo_url: projectData.github_repo_url,
           tech_stack: projectData.tech_stack,
           features: projectData.features,
@@ -362,7 +362,6 @@ export const projectService = {
     price: number;
     category: string;
     images: string[];
-    added_by: string;
     is_published?: boolean;
   }) {
     try {
@@ -371,13 +370,20 @@ export const projectService = {
         .insert([{
           title: projectData.title,
           short_description: projectData.short_description,
-          full_description: projectData.description,
+          description: projectData.description,
           slug: projectData.title.toLowerCase().replace(/\s+/g, '-'),
           price: projectData.price,
           category: projectData.category,
           images: projectData.images,
+          tech_stack: [],
+          features: [],
+          thumbnail_url: '',
+          demo_link: '',
+          github_repo_url: '',
+          video_url: '',
+          is_featured: false,
           is_published: projectData.is_published ?? true,
-          added_by: projectData.added_by,
+          added_by: null,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
         }])
