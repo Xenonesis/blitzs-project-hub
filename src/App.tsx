@@ -23,6 +23,7 @@ import Unauthorized from "./pages/Unauthorized";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import QuickSetup from "@/components/admin/QuickSetup";
 import Settings from "./pages/Settings";
+import AddProject from "./pages/AddProject";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +58,11 @@ const App = () => (
             <Route path="/signup" element={<Signup />} />
             <Route path="/get-started" element={<GetStarted />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/add-project" element={
+              <ProtectedRoute>
+                <AddProject />
+              </ProtectedRoute>
+            } />
             <Route path="/setup" element={<QuickSetup />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="*" element={<NotFound />} />

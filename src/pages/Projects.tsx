@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
-import { Search, Filter, ShoppingCart, ExternalLink, Star, Download, Eye } from 'lucide-react';
+import { Search, Filter, ShoppingCart, ExternalLink, Star, Download, Eye, Upload } from 'lucide-react';
 
 const Projects = () => {
   const { user } = useAuth();
@@ -46,8 +46,12 @@ const Projects = () => {
 
       const response = await projectService.getAllProjects(params);
       if (response.success) {
-        setProjects(response.data.projects);
-        setPagination(response.data.pagination);
+        setProjects(response.data);
+        setPagination({
+          currentPage: response.pagination.page,
+          totalPages: response.pagination.totalPages,
+          totalProjects: response.pagination.total
+        });
       }
     } catch (error) {
       console.error('Error fetching projects:', error);
@@ -112,6 +116,20 @@ const Projects = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Add Project Button */}
+      {user && (
+        <section className="py-4 bg-muted/50">
+          <div className="container mx-auto px-4">
+            <div className="flex justify-end">
+              <Button onClick={() => navigate('/add-project')}>
+                <Upload className="h-4 w-4 mr-2" />
+                Add Your Project
+              </Button>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Filters */}
       <section className="py-8 border-b">

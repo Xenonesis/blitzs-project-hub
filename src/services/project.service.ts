@@ -353,5 +353,41 @@ export const projectService = {
         message: error.message || 'Failed to fetch purchases'
       };
     }
+  },
+
+  async createProject(projectData: {
+    title: string;
+    description: string;
+    price: number;
+    category: string;
+    images: string[];
+    added_by: string;
+    is_published?: boolean;
+  }) {
+    try {
+      const { data, error } = await supabase
+        .from('projects')
+        .insert([{
+          ...projectData,
+          is_published: projectData.is_published ?? true,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        }])
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      return {
+        success: true,
+        data
+      };
+    } catch (error: any) {
+      console.error('Error creating project:', error);
+      return {
+        success: false,
+        message: error.message || 'Failed to create project'
+      };
+    }
   }
 };
