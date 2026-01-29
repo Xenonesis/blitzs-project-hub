@@ -206,12 +206,16 @@ export const Navbar = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <div className="hidden md:flex items-center gap-2">
-                <Button variant="ghost" asChild className="hover:bg-muted/50">
-                  <Link to="/login">Sign In</Link>
+              <div className="hidden md:flex items-center gap-3">
+                <Button variant="outline" asChild className="px-3 py-1 text-sm">
+                  <Link to="/login" className="font-medium">
+                    Sign In
+                  </Link>
                 </Button>
-                <Button asChild className="shadow-sm">
-                  <Link to="/signup">Get Started</Link>
+                <Button asChild className="shadow-sm h-9 px-4">
+                  <Link to="/signup" className="font-medium">
+                    Get Started
+                  </Link>
                 </Button>
               </div>
             )}

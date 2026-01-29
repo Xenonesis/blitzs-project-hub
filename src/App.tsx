@@ -15,7 +15,7 @@ import SimpleAdminDashboardNew from "./pages/SimpleAdminDashboardNew";
 import Projects from "./pages/Projects";
 import Purchase from "./pages/Purchase";
 import ProjectDetail from "./pages/ProjectDetail";
-import Team from "./pages/Team";
+import { Team } from "./pages/Team";
 import Guide from "./pages/Guide";
 import Contact from "./pages/Contact";
 import GetStarted from "./pages/GetStarted";
