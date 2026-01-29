@@ -58,12 +58,30 @@ export const Navbar = () => {
 
             {user ? (
               <div className="flex items-center gap-2">
-                <span className="text-sm hidden md:inline text-muted-foreground">
-                  {user.email?.split("@")[0]}
-                </span>
-                <Button variant="outline" size="sm" onClick={() => signOut()}>
-                  Sign Out
-                </Button>
+                {/* Profile dropdown: show avatar or initials, profile link and sign out */}
+                <div className="hidden md:flex items-center gap-2">
+                  <Link to="/user-dashboard" className="flex items-center gap-2">
+                    {user.avatar ? (
+                      <img
+                        src={user.avatar}
+                        alt={user.full_name || user.email}
+                        className="h-8 w-8 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="h-8 w-8 rounded-full bg-muted-foreground text-background flex items-center justify-center text-sm font-medium">
+                        {user.full_name
+                          ? user.full_name.split(" ").map(n => n[0]).slice(0,2).join("")
+                          : user.email?.split("@")[0].slice(0,2).toUpperCase()}
+                      </div>
+                    )}
+                    <span className="text-sm hidden md:inline text-muted-foreground">
+                      {user.full_name || user.email?.split("@")[0]}
+                    </span>
+                  </Link>
+                  <Button variant="outline" size="sm" onClick={() => signOut()}>
+                    Sign Out
+                  </Button>
+                </div>
               </div>
             ) : (
               <div className="hidden md:flex items-center gap-2">
@@ -111,7 +129,29 @@ export const Navbar = () => {
                 {link.label}
               </Link>
             ))}
-            {!user && (
+            {user ? (
+              <div className="pt-4 space-y-2 border-t">
+                <Link
+                  to="/user-dashboard"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground"
+                >
+                  Profile
+                </Link>
+                {isAdmin && (
+                  <Link
+                    to="/admin-dashboard"
+                    onClick={() => setIsOpen(false)}
+                    className="block px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground"
+                  >
+                    Admin Dashboard
+                  </Link>
+                )}
+                <Button variant="ghost" className="w-full" onClick={() => { setIsOpen(false); signOut(); }}>
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
               <div className="pt-4 space-y-2 border-t">
                 <Button
                   variant="ghost"
